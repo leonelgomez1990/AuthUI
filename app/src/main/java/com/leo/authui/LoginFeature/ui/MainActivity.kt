@@ -1,7 +1,8 @@
-package com.leo.authui
+package com.leo.authui.LoginFeature.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.leo.authui.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
