@@ -1,4 +1,4 @@
-package com.leo.authui.LoginFeature.ui.viewstates
+package com.leo.authui.login.ui.viewstates
 
 sealed class LoginViewState{
     object Ready: LoginViewState()

@@ -1,4 +1,4 @@
-package com.leo.authui.LoginFeature.ui.fragments
+package com.leo.authui.login.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.leo.authui.LoginFeature.ui.viewmodels.SplashViewModel
+import com.leo.authui.login.ui.viewmodels.SplashViewModel
 import com.leo.authui.databinding.FragmentSplashBinding
-import com.leo.authui.CoreFeature.utils.exhaustive
-import com.leo.authui.LoginFeature.ui.navigatorstates.SplashNavigatorStates
-import com.leo.authui.LoginFeature.ui.viewstates.SplashViewState
+import com.leo.authui.core.utils.exhaustive
+import com.leo.authui.login.ui.navigatorstates.SplashNavigatorStates
+import com.leo.authui.login.ui.viewstates.SplashViewState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     private val SPLASH_SCREEN_DELAY: Long = 2000

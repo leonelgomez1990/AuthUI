@@ -1,4 +1,4 @@
-package com.leo.authui.LoginFeature.ui.navigatorstates
+package com.leo.authui.login.ui.navigatorstates
 
 sealed class SplashNavigatorStates {
     object ToSignIn: SplashNavigatorStates()

@@ -1,4 +1,4 @@
-package com.leo.authui.CoreFeature.utils
+package com.leo.authui.core.utils
 
 import android.view.View
 

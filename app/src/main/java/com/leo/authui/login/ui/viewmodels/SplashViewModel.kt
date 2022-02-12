@@ -1,16 +1,20 @@
-package com.leo.authui.LoginFeature.ui.viewmodels
+package com.leo.authui.login.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leo.authui.CoreFeature.utils.SingleLiveEvent
-import com.leo.authui.LoginFeature.ui.navigatorstates.SplashNavigatorStates
-import com.leo.authui.LoginFeature.ui.viewstates.SplashViewState
+import com.leo.authui.core.utils.SingleLiveEvent
+import com.leo.authui.login.ui.navigatorstates.SplashNavigatorStates
+import com.leo.authui.login.ui.viewstates.SplashViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel : ViewModel() {
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+): ViewModel() {
 
     private val _viewState: MutableLiveData<SplashViewState> = MutableLiveData()
     val viewState: LiveData<SplashViewState> get() = _viewState
