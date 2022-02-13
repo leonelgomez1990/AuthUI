@@ -1,5 +1,8 @@
 package com.leo.authui.login.ui.di
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.leo.authui.login.data.UsersDataSource
 import com.leo.authui.login.data.UsersRepository
 import com.leo.authui.login.framework.FirebaseUserSource
@@ -10,16 +13,20 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
 
     // Framework provides
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
 
     // Data- DataSource provides
     @Provides
-    fun provideFirebaseUserSource() : UsersDataSource = FirebaseUserSource()
+    fun provideFirebaseUserSource(auth: FirebaseAuth) : UsersDataSource = FirebaseUserSource(auth)
 
     // Data- Repository provides
     @Provides
