@@ -9,5 +9,19 @@
         android:id="@+id/listNewsFragment"
         android:name="com.leo.authui.menu.ui.fragments.ListNewsFragment"
         android:label="fragment_list_news"
-        tools:layout="@layout/fragment_list_news" />
+        tools:layout="@layout/fragment_list_news" >
+        <action
+            android:id="@+id/action_listNewsFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailNewsFragment"
+        android:name="com.leo.authui.menu.ui.fragments.DetailNewsFragment"
+        android:label="fragment_detail_news"
+        tools:layout="@layout/fragment_detail_news" >
+        <argument android:name="new"
+            app:argType="com.leo.authui.menu.ui.models.NewUI"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
