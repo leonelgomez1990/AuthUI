@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
-    private val SPLASH_SCREEN_DELAY: Long = 2000
+    private val SPLASH_SCREEN_DELAY: Long = 1000
     companion object {
         fun newInstance() = SplashFragment()
     }

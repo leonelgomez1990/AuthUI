@@ -35,7 +35,8 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInBinding.inflate(layoutInflater)
-
+        binding.checkRemember.visibility = View.GONE
+        binding.txtSignUp.visibility = View.GONE
         setListeners()
 
         return binding.root
