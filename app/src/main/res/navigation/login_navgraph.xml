@@ -20,5 +20,14 @@
         android:id="@+id/signInFragment"
         android:name="com.leo.authui.login.ui.fragments.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_menuActivity"
+            app:destination="@id/menuActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/menuActivity"
+        android:name="com.leo.authui.menu.ui.MenuActivity"
+        android:label="activity_menu"
+        tools:layout="@layout/activity_menu" />
 </navigation>

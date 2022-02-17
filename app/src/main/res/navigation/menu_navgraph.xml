@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_navgraph"
+    app:startDestination="@id/listNewsFragment">
+
+    <fragment
+        android:id="@+id/listNewsFragment"
+        android:name="com.leo.authui.menu.ui.fragments.ListNewsFragment"
+        android:label="fragment_list_news"
+        tools:layout="@layout/fragment_list_news" />
+</navigation>

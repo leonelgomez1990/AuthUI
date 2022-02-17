@@ -35,13 +35,13 @@ class SignInViewModel @Inject constructor(
                 is MyResult.Failure -> { _viewState.value = LoginViewState.Failure(result.exception) }
                 is MyResult.Success -> {
                     _viewState.value = LoginViewState.Done("Entramos")
-                    goToMainApplication()
+                    goToMenuApplication()
                 }
             }
         }
     }
 
-    private fun goToMainApplication() {
-
+    private fun goToMenuApplication() {
+        _navigation.value = SignInNavigatorStates.ToMenuFeature
     }
 }

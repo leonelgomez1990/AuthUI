@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
@@ -51,8 +52,15 @@ class SignInFragment : Fragment() {
     }
 
     private fun handleNavigation(navigation: SignInNavigatorStates) {
-
+        when(navigation) {
+            is SignInNavigatorStates.ToMenuFeature -> {
+                val action = SignInFragmentDirections.actionSignInFragmentToMenuActivity()
+                findNavController().navigate(action)
+                activity?.finish()
+            }
+        }.exhaustive
     }
+
 
     private fun handleViewStates(state: LoginViewState) {
         when(state) {

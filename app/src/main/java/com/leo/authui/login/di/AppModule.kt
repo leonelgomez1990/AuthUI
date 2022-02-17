@@ -1,4 +1,4 @@
-package com.leo.authui.login.ui.di
+package com.leo.authui.login.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
-            android:name=".login.ui.MainActivity"
+            android:name=".menu.ui.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
