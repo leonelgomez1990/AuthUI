@@ -25,4 +25,18 @@ class FirebaseUserSource constructor(
             MyResult.Failure(e)
         }
     }
+
+    override suspend fun createUserWithEmailAndPassword(
+        email: String,
+        password: String
+    ): MyResult<Boolean> {
+        return try {
+            val result = auth.createUserWithEmailAndPassword(email, password).await()
+            Log.d("FirebaseUserSource", "createUserWithEmailAndPassword:success")
+            MyResult.Success(true)
+        } catch (e: Exception) {
+            Log.w("FirebaseUserSource", "createUserWithEmailAndPassword:failure, Exception thrown: ${e.message}")
+            MyResult.Failure(e)
+        }
+    }
 }

@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -19,31 +19,29 @@ import com.leo.authui.core.ui.hideKeyboard
 import com.leo.authui.core.ui.views.BaseViewState
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
-import com.leo.authui.databinding.FragmentSignInBinding
-import com.leo.authui.login.ui.navigatorstates.SignInNavigatorStates
-import com.leo.authui.login.ui.viewmodels.SignInViewModel
+import com.leo.authui.databinding.FragmentSignUpBinding
+import com.leo.authui.login.ui.navigatorstates.SignUpNavigatorStates
+import com.leo.authui.login.ui.viewmodels.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SignInFragment()
+        fun newInstance() = SignUpFragment()
     }
 
-    private val viewModel: SignInViewModel by viewModels()
-    private var _binding: FragmentSignInBinding? = null
+    private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SignUpViewModel  by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSignInBinding.inflate(layoutInflater)
-        //No implementado por ahora
-        binding.checkRemember.visibility = View.GONE
+        _binding = FragmentSignUpBinding.inflate(layoutInflater)
         setListeners()
-
         return binding.root
     }
 
@@ -55,22 +53,26 @@ class SignInFragment : Fragment() {
     private fun setObservers() {
         viewModel.navigation.observe(viewLifecycleOwner, Observer { handleNavigation(it) })
         viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it)})
+
     }
 
-    private fun handleNavigation(navigation: SignInNavigatorStates) {
+
+    private fun setListeners() {
+        binding.btnCreateNewUser.setOnClickListener { checkFieldsToCreateNewUser() }
+        binding.btnReturn.setOnClickListener { viewModel.goBack() }
+    }
+
+    private fun handleNavigation(navigation: SignUpNavigatorStates) {
         when(navigation) {
-            is SignInNavigatorStates.ToMenuFeature -> {
-                val action = SignInFragmentDirections.actionSignInFragmentToMenuActivity()
-                findNavController().navigate(action)
-                activity?.finish()
+            is SignUpNavigatorStates.ToSignIn -> {
+                showMessage("Usuario agregado exitosamente")
+                findNavController().navigateUp()
             }
-            SignInNavigatorStates.ToSignUp -> {
-                val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
-                findNavController().navigate(action)
+            is SignUpNavigatorStates.ToGoBack -> {
+                findNavController().navigateUp()
             }
         }.exhaustive
     }
-
 
     private fun handleViewStates(state: BaseViewState) {
         when(state) {
@@ -81,18 +83,15 @@ class SignInFragment : Fragment() {
         }.exhaustive
     }
 
-    private fun setListeners() {
-        binding.btnSignIn.setOnClickListener {
-            signInCallBack()
-        }
-        binding.txtSignUp.setOnClickListener { viewModel.goToSignUp() }
+    private fun showMessage(msg: String) {
+        binding.root.snack(msg, Snackbar.LENGTH_SHORT)
     }
 
     private fun enableUI(enable: Boolean) {
         if(enable) {
-            binding.progressBarSignIn.visibility = View.GONE
+            binding.progressBarSignUp.visibility = View.GONE
         } else {
-            binding.progressBarSignIn.visibility = View.VISIBLE
+            binding.progressBarSignUp.visibility = View.VISIBLE
         }
     }
 
@@ -112,33 +111,33 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun signInCallBack() {
-        val username = binding.editUserName.editText?.text.toString()
-        val password = binding.editPassword.editText?.text.toString()
+    private fun checkFieldsToCreateNewUser() {
+        val username = binding.editNewUserName.editText?.text.toString()
+        val password = binding.editNewPassword.editText?.text.toString()
+        val passwordRepeat = binding.editNewRepeatPassword.editText?.text.toString()
         binding.root.hideKeyboard()
 
-        if(username.isNotBlank() and password.isNotBlank()) {
-            Log.d(ContentValues.TAG, "SignInFragment: User: $username, Pass: $password")
-            viewModel.doUserLogin(username, password)
-        } else {
-            binding.editUserName.error = when(username.isBlank()) {
-                true -> "Ingrese su usuario"
-                false -> null
-            }
-            binding.editPassword.error = when(password.isBlank()) {
-                true -> "Ingrese su contraseña"
-                false -> null
-            }
+        binding.editNewUserName.error = when(username.isBlank()) {
+            true -> "Ingrese un email"
+            false -> null
         }
-    }
+        binding.editNewUserName.error = when(!username.contains('@')) {
+            true -> "Ingrese un email válido"
+            false -> null
+        }
+        binding.editNewPassword.error = when(password.isBlank()) {
+            true -> "Ingrese una contraseña"
+            false -> null
+        }
+        binding.editNewRepeatPassword.error = when(password != passwordRepeat) {
+            true -> "Las contraseñas deben coincidir"
+            false -> null
+        }
+        if((username.isNotBlank() and password.isNotBlank()) and (password == passwordRepeat)) {
+            Log.d(ContentValues.TAG, "SignUpFragment: User: $username, Pass: $password")
+            viewModel.doCreateNewUser(username, password)
+        }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun showMessage(msg: String) {
-        binding.root.snack(msg, Snackbar.LENGTH_SHORT)
     }
 
 }

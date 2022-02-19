@@ -8,7 +8,9 @@ import com.leo.authui.login.data.UsersRepositoryImpl
 import com.leo.authui.login.framework.FirebaseUserSource
 import com.leo.authui.login.framework.UsersDataSource
 import com.leo.authui.login.ui.viewmodels.SignInViewModel
+import com.leo.authui.login.ui.viewmodels.SignUpViewModel
 import com.leo.authui.login.ui.viewmodels.SplashViewModel
+import com.leo.authui.login.usecases.CreateUserWithEmailAndPasswordUseCase
 import com.leo.authui.login.usecases.LoginWithEmailAndPasswordUseCase
 import dagger.Module
 import dagger.Provides
@@ -37,9 +39,15 @@ object AppModule {
     @Provides
     fun provideLoginWithEmailAndPasswordUseCase(userRepository: UsersRepository) : LoginWithEmailAndPasswordUseCase = LoginWithEmailAndPasswordUseCase(userRepository)
 
+    @Provides
+    fun provideCreateUserWithEmailAndPasswordUseCase(userRepository: UsersRepository) : CreateUserWithEmailAndPasswordUseCase = CreateUserWithEmailAndPasswordUseCase(userRepository)
+
     // Viewmodel provides
     @Provides
     fun provideSignInViewModel (loginWithEmailAndPasswordUseCase: LoginWithEmailAndPasswordUseCase) : SignInViewModel = SignInViewModel(loginWithEmailAndPasswordUseCase)
+
+    @Provides
+    fun provideSignUpViewModel (createUserWithEmailAndPasswordUseCase: CreateUserWithEmailAndPasswordUseCase) : SignUpViewModel = SignUpViewModel(createUserWithEmailAndPasswordUseCase)
 
     @Provides
     fun provideSplashViewModel () : SplashViewModel = SplashViewModel()
