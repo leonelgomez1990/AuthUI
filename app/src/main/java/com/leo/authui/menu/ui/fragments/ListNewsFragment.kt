@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.leo.authui.R
-import com.leo.authui.core.ui.BaseViewState
+import com.leo.authui.core.ui.views.BaseViewState
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
 import com.leo.authui.databinding.FragmentListNewsBinding

@@ -3,26 +3,26 @@ package com.leo.authui.login.framework
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.leo.authui.core.utils.MyResult
-import com.leo.authui.login.data.UsersDataSource
+import com.leo.authui.login.data.UsersRepository
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 import javax.inject.Inject
 
-class FirebaseUserSource @Inject constructor(
-    private val auth : FirebaseAuth
+class FirebaseUserSource constructor(
+    private val auth: FirebaseAuth
 ) : UsersDataSource {
 
     override suspend fun loginWithEmailAndPassword(
         email: String,
         password: String
     ): MyResult<Boolean> {
-        try {
+        return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
+            Log.d("FirebaseUserSource", "signInWithEmail:success")
             MyResult.Success(true)
         } catch (e: Exception) {
-            Log.e("FirebaseUserSource", "Exception thrown: ${e.message}")
-            return MyResult.Failure(e)
+            Log.w("FirebaseUserSource", "signInWithEmail:failure, Exception thrown: ${e.message}")
+            MyResult.Failure(e)
         }
-        return MyResult.Success(false)
     }
 }

@@ -1,4 +1,4 @@
-package com.leo.authui.core.ui
+package com.leo.authui.core.ui.views
 
 sealed class BaseViewState{
     object Ready: BaseViewState()

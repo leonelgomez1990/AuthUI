@@ -1,4 +1,4 @@
-package com.leo.authui
+package com.leo.authui.core
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
