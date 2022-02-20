@@ -40,10 +40,9 @@ class ListNewsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         setObservers()
-
     }
 
     private fun setObservers() {
