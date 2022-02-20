@@ -43,13 +43,13 @@ object NewsModule {
         retrofit.create(NewsProvider::class.java)
 
     // Framework- DataSource provides
-    @Provides
-    fun provideRetrofitNewsDataSource(newsProvider: NewsProvider): NewsDataSource =
-        NewsProviderImpl(newsProvider)
-
     //@Provides
-    //fun provideFirebaseNewsDataSource(db: FirebaseFirestore, storage: FirebaseStorage): NewsDataSource =
-    //    FirebaseNewsDataSource(db, storage)
+    //fun provideRetrofitNewsDataSource(newsProvider: NewsProvider): NewsDataSource =
+    //    NewsProviderImpl(newsProvider)
+
+    @Provides
+    fun provideFirebaseNewsDataSource(db: FirebaseFirestore, storage: FirebaseStorage): NewsDataSource =
+        FirebaseNewsDataSource(db, storage)
 
     // Data- Repository provides
     @Provides

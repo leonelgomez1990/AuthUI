@@ -1,7 +1,11 @@
 package com.leo.authui.menu.framework
 
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.leo.authui.core.utils.MyResult
 import com.leo.authui.menu.domain.News
+import com.leo.authui.menu.framework.entities.toFirebaseNew
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class NewsProviderImpl @Inject constructor(
@@ -21,6 +25,7 @@ class NewsProviderImpl @Inject constructor(
                 }
             }
             news = apiResponse?.articles ?: emptyList()
+            //uploadToFirebase()
 
             MyResult.Success(news)
         }
@@ -37,6 +42,25 @@ class NewsProviderImpl @Inject constructor(
         catch (e : Exception) {
             MyResult.Failure(e)
         }
+    }
+
+    private suspend fun uploadToFirebase() {
+        val db = Firebase.firestore
+
+        news.forEach { new ->
+            val document = db.collection("News").document()
+            new.uid = document.id
+            new.enabled = true
+            val query = document
+            try{
+                val data = query
+                    .set(new.toFirebaseNew())
+                    .await()
+            }catch(e: java.lang.Exception){
+            }
+        }
+
+
     }
 
 
