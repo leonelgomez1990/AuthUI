@@ -16,4 +16,7 @@ class UsersRepositoryImpl(
         email: String,
         password: String
     ): MyResult<Boolean> = usersDataSource.createUserWithEmailAndPassword(email, password)
+
+    override suspend fun sendPasswordResetEmail(email: String): MyResult<Boolean> =
+        usersDataSource.sendPasswordResetEmail(email)
 }

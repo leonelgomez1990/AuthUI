@@ -14,33 +14,35 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.leo.authui.core.utils.exhaustive
+import com.leo.authui.core.ui.views.BaseViewState
 import com.leo.authui.R
 import com.leo.authui.core.ui.hideKeyboard
-import com.leo.authui.core.ui.views.BaseViewState
-import com.leo.authui.core.utils.exhaustive
+import com.leo.authui.core.utils.showConfirmDialog
 import com.leo.authui.core.utils.snack
-import com.leo.authui.databinding.FragmentSignUpBinding
-import com.leo.authui.login.ui.navigatorstates.SignUpNavigatorStates
-import com.leo.authui.login.ui.viewmodels.SignUpViewModel
+import com.leo.authui.login.ui.navigatorstates.PassRecoveryNavigatorStates
+import com.leo.authui.login.ui.viewmodels.PassRecoveryViewModel
+import com.leo.authui.databinding.FragmentPassRecoveryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 
 @AndroidEntryPoint
-class SignUpFragment : Fragment() {
+class PassRecoveryFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SignUpFragment()
-        const val TAG = "SignUpFragment"
+        fun newInstance() = PassRecoveryFragment()
+        const val TAG = "PassRecoveryFragment"
     }
 
-    private var _binding: FragmentSignUpBinding? = null
+    private var _binding: FragmentPassRecoveryBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SignUpViewModel by activityViewModels()
+    private val viewModel: PassRecoveryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSignUpBinding.inflate(layoutInflater)
+        _binding = FragmentPassRecoveryBinding.inflate(layoutInflater)
         setListeners()
         return binding.root
     }
@@ -51,23 +53,23 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.btnCreateNewUser.setOnClickListener { checkFieldsToCreateNewUser() }
-        binding.btnReturn.setOnClickListener { viewModel.goBack() }
+        binding.btnRecoveryReturn.setOnClickListener { viewModel.goBack() }
+        binding.btnRecoveryPassword.setOnClickListener { checkFieldsToRecoveryEmail() }
     }
 
     private fun setObservers() {
         viewModel.navigation.observe(viewLifecycleOwner, Observer { handleNavigation(it) })
         viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it) })
-
+        //Otros observadores
     }
 
-    private fun handleNavigation(navigation: SignUpNavigatorStates) {
+    private fun handleNavigation(navigation: PassRecoveryNavigatorStates) {
         when (navigation) {
-            is SignUpNavigatorStates.ToSignIn -> {
-                showMessage("Usuario agregado exitosamente")
+            is PassRecoveryNavigatorStates.ToSignIn -> {
+                showMessage("Se envió un mail de recuperación")
                 findNavController().navigateUp()
             }
-            is SignUpNavigatorStates.ToGoBack -> {
+            is PassRecoveryNavigatorStates.GoBack -> {
                 findNavController().navigateUp()
             }
         }.exhaustive
@@ -88,16 +90,16 @@ class SignUpFragment : Fragment() {
         }.exhaustive
     }
 
-    private fun enableUI(enable: Boolean) {
-        if (enable) {
-            binding.progressBarSignUp.visibility = View.GONE
-        } else {
-            binding.progressBarSignUp.visibility = View.VISIBLE
-        }
-    }
-
     private fun showMessage(msg: String) {
         binding.root.snack(msg, Snackbar.LENGTH_SHORT)
+    }
+
+    private fun enableUI(enable: Boolean) {
+        if (enable) {
+            binding.progressLoader.visibility = View.GONE
+        } else {
+            binding.progressLoader.visibility = View.VISIBLE
+        }
     }
 
     private fun handleExceptions(e: Exception) {
@@ -113,36 +115,30 @@ class SignUpFragment : Fragment() {
                 showMessage(getString(R.string.msg_error_InvalidUser))
             }
             else -> {
-                showMessage(e.message!!)
+                showMessage(getString(R.string.msg_error_default) + e.message!!)
             }
         }
     }
 
-    private fun checkFieldsToCreateNewUser() {
+    private fun checkFieldsToRecoveryEmail() {
         with(binding) {
-            val username = editNewUserName.editText?.text.toString()
-            val password = editNewPassword.editText?.text.toString()
-            val passwordRepeat = editNewRepeatPassword.editText?.text.toString()
+            val email = editRecoveryEmail.editText?.text.toString()
             root.hideKeyboard()
 
-            editNewUserName.error = when (!username.contains('@')) {
+            editRecoveryEmail.error = when (!email.contains('@')) {
                 true -> "Ingrese un email válido"
                 false -> null
             }
-            editNewPassword.error = when (password.isBlank()) {
-                true -> "Ingrese una contraseña"
-                false -> null
-            }
-            editNewRepeatPassword.error = when (password != passwordRepeat) {
-                true -> "Las contraseñas deben coincidir"
-                false -> null
-            }
-            if ((editNewUserName.error == null && editNewPassword.error == null && editNewRepeatPassword.error == null)) {
-                Log.d(TAG, "$TAG: User: $username, Pass: $password")
-                viewModel.doCreateNewUser(username, password)
+            if (editRecoveryEmail.error == null) {
+                root.showConfirmDialog(
+                    "Reseteo de Contraseña",
+                    "¿Desea enviar un mail a $email para recuperar su contraseña?"
+                ) {
+                    Log.d(TAG, "$TAG: User: $email")
+                    viewModel.resetPassword(email)
+                }
             }
         }
-
     }
 
 }

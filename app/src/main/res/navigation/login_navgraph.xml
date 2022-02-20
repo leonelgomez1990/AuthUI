@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_passRecoveryFragment"
+            app:destination="@id/passRecoveryFragment" />
     </fragment>
     <activity
         android:id="@+id/menuActivity"
@@ -38,4 +41,9 @@
         android:name="com.leo.authui.login.ui.fragments.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/passRecoveryFragment"
+        android:name="com.leo.authui.login.ui.fragments.PassRecoveryFragment"
+        android:label="fragment_pass_recovery"
+        tools:layout="@layout/fragment_pass_recovery" />
 </navigation>

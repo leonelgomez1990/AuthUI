@@ -47,4 +47,8 @@ class SignInViewModel @Inject constructor(
     fun goToSignUp() {
         _navigation.value = SignInNavigatorStates.ToSignUp
     }
+
+    fun goToPassRecovery() {
+        _navigation.value = SignInNavigatorStates.ToPassRecovery
+    }
 }

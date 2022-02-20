@@ -29,6 +29,7 @@ class SignInFragment : Fragment() {
 
     companion object {
         fun newInstance() = SignInFragment()
+        const val TAG = "SignInFragment"
     }
 
     private val viewModel: SignInViewModel by viewModels()
@@ -52,13 +53,21 @@ class SignInFragment : Fragment() {
         setObservers()
     }
 
+    private fun setListeners() {
+        binding.btnSignIn.setOnClickListener {
+            signInCallBack()
+        }
+        binding.txtSignUp.setOnClickListener { viewModel.goToSignUp() }
+        binding.txtPswdForgotten.setOnClickListener { viewModel.goToPassRecovery() }
+    }
+
     private fun setObservers() {
         viewModel.navigation.observe(viewLifecycleOwner, Observer { handleNavigation(it) })
-        viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it)})
+        viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it) })
     }
 
     private fun handleNavigation(navigation: SignInNavigatorStates) {
-        when(navigation) {
+        when (navigation) {
             is SignInNavigatorStates.ToMenuFeature -> {
                 val action = SignInFragmentDirections.actionSignInFragmentToMenuActivity()
                 findNavController().navigate(action)
@@ -68,66 +77,75 @@ class SignInFragment : Fragment() {
                 val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
                 findNavController().navigate(action)
             }
+            SignInNavigatorStates.ToPassRecovery -> {
+                val action = SignInFragmentDirections.actionSignInFragmentToPassRecoveryFragment()
+                findNavController().navigate(action)
+            }
         }.exhaustive
     }
-
 
     private fun handleViewStates(state: BaseViewState) {
-        when(state) {
-            is BaseViewState.Failure -> { handleExceptions(state.exception)
-                enableUI(true)}
-            is BaseViewState.Loading -> { enableUI(false) }
-            is BaseViewState.Ready -> { enableUI(true) }
+        when (state) {
+            is BaseViewState.Failure -> {
+                handleExceptions(state.exception)
+                enableUI(true)
+            }
+            is BaseViewState.Loading -> {
+                enableUI(false)
+            }
+            is BaseViewState.Ready -> {
+                enableUI(true)
+            }
         }.exhaustive
-    }
-
-    private fun setListeners() {
-        binding.btnSignIn.setOnClickListener {
-            signInCallBack()
-        }
-        binding.txtSignUp.setOnClickListener { viewModel.goToSignUp() }
     }
 
     private fun enableUI(enable: Boolean) {
-        if(enable) {
+        if (enable) {
             binding.progressBarSignIn.visibility = View.GONE
         } else {
             binding.progressBarSignIn.visibility = View.VISIBLE
         }
     }
 
-    private fun handleExceptions(e: Exception){
-        Log.w("LoginFragment", "Exception thrown: ${e.message}")
-        when(e) {
+    private fun showMessage(msg: String) {
+        binding.root.snack(msg, Snackbar.LENGTH_SHORT)
+    }
+
+    private fun handleExceptions(e: Exception) {
+        Log.w(TAG, "Exception thrown: ${e.message}")
+        when (e) {
             is FirebaseAuthInvalidCredentialsException -> {
                 showMessage(getString(R.string.msg_error_credentials))
             }
-            is FirebaseNetworkException ->{
+            is FirebaseNetworkException -> {
                 showMessage(getString(R.string.msg_error_network))
             }
-            is FirebaseAuthInvalidUserException ->{
+            is FirebaseAuthInvalidUserException -> {
                 showMessage(getString(R.string.msg_error_InvalidUser))
             }
-            else -> { showMessage(e.message!!) }
+            else -> {
+                showMessage(e.message!!)
+            }
         }
     }
 
     private fun signInCallBack() {
-        val username = binding.editUserName.editText?.text.toString()
-        val password = binding.editPassword.editText?.text.toString()
-        binding.root.hideKeyboard()
+        with(binding) {
+            val username = editUserName.editText?.text.toString()
+            val password = editPassword.editText?.text.toString()
+            root.hideKeyboard()
 
-        if(username.isNotBlank() and password.isNotBlank()) {
-            Log.d(ContentValues.TAG, "SignInFragment: User: $username, Pass: $password")
-            viewModel.doUserLogin(username, password)
-        } else {
-            binding.editUserName.error = when(username.isBlank()) {
-                true -> "Ingrese su usuario"
+            editUserName.error = when (!username.contains('@')) {
+                true -> "Ingrese un email válido"
                 false -> null
             }
-            binding.editPassword.error = when(password.isBlank()) {
-                true -> "Ingrese su contraseña"
+            editPassword.error = when (password.isBlank()) {
+                true -> "Ingrese una contraseña"
                 false -> null
+            }
+            if ((editUserName.error == null && editPassword.error == null)) {
+                Log.d(TAG, "$TAG: User: $username, Pass: $password")
+                viewModel.doUserLogin(username, password)
             }
         }
     }
@@ -137,8 +155,5 @@ class SignInFragment : Fragment() {
         _binding = null
     }
 
-    private fun showMessage(msg: String) {
-        binding.root.snack(msg, Snackbar.LENGTH_SHORT)
-    }
 
 }

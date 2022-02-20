@@ -7,116 +7,136 @@
     android:layout_height="match_parent"
     tools:context=".login.ui.fragments.SignInFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+    <ScrollView
+        android:id="@+id/scrollViewSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editUserName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/fragment_signin_username"
-        app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/editPassword"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingBottom="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:hint="@string/fragment_signin_password"
-        app:endIconMode="password_toggle"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/editUserName">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
 
-    <CheckBox
-        android:id="@+id/checkRemember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:text="@string/fragment_signin_remember_me"
-        app:layout_constraintEnd_toStartOf="@+id/txtPswdForgotten"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
 
-    <TextView
-        android:id="@+id/txtPswdForgotten"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="@string/fragment_signin_forgot_password"
-        app:layout_constraintBottom_toBottomOf="@+id/checkRemember"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toEndOf="@+id/checkRemember"
-        app:layout_constraintTop_toTopOf="@+id/checkRemember" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9" />
 
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_signin_login_button"
-        android:layout_marginTop="32dp"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtSignUp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/checkRemember" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editUserName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/fragment_signin_username"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/editPassword"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top">
 
-    <TextView
-        android:id="@+id/txtSignUp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/fragment_signin_signup_button"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="48dp"
+                android:hint="@string/fragment_signin_password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/editUserName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/checkRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:text="@string/fragment_signin_remember_me"
+                app:layout_constraintEnd_toStartOf="@+id/txtPswdForgotten"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+
+            <TextView
+                android:id="@+id/txtPswdForgotten"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="@string/fragment_signin_forgot_password"
+                app:layout_constraintBottom_toBottomOf="@+id/checkRemember"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toEndOf="@+id/checkRemember"
+                app:layout_constraintTop_toTopOf="@+id/checkRemember" />
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_signin_login_button"
+                android:layout_marginTop="32dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtSignUp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/checkRemember" />
+
+            <TextView
+                android:id="@+id/txtSignUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/fragment_signin_signup_button"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBarSignIn"

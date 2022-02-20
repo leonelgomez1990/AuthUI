@@ -19,6 +19,10 @@
     <string name="msg_error_credentials">Error de credenciales</string>
     <string name="msg_error_network">Error de red</string>
     <string name="msg_error_InvalidUser">Usuario inválido</string>
+    <string name="fragment_pass_recovery_btn_accept">Enviar</string>
+    <string name="fragment_pass_recovery_btn_cancel">Volver</string>
+    <string name="fragment_pass_recovery_email">Email</string>
+    <string name="fragment_pass_recovery_txt_title">Recuperar contraseña</string>
     <!-- Other strings -->
 
 </resources>
