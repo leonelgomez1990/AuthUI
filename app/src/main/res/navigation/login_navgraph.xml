@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.leo.authui.LoginFeature.ui.fragments.SplashFragment"
+        android:name="com.leo.authui.login.ui.fragments.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -18,7 +18,32 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.leo.authui.LoginFeature.ui.fragments.SignInFragment"
+        android:name="com.leo.authui.login.ui.fragments.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_menuActivity"
+            app:destination="@id/menuActivity" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_passRecoveryFragment"
+            app:destination="@id/passRecoveryFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/menuActivity"
+        android:name="com.leo.authui.menu.ui.MenuActivity"
+        android:label="activity_menu"
+        tools:layout="@layout/activity_menu" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.leo.authui.login.ui.fragments.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/passRecoveryFragment"
+        android:name="com.leo.authui.login.ui.fragments.PassRecoveryFragment"
+        android:label="fragment_pass_recovery"
+        tools:layout="@layout/fragment_pass_recovery" />
 </navigation>

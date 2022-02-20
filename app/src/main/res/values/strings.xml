@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">AuthUI</string>
+
+    <string name="msg_error_default">Error al procesar la solicitud</string>
+    <!-- SignInFragment layout strings -->
+    <string name="fragment_signin_username">Email</string>
+    <string name="fragment_signin_password">Contraseña</string>
+    <string name="fragment_signin_remember_me">Recordarme</string>
+    <string name="fragment_signin_forgot_password">¿Olvido su contraseña?</string>
+    <string name="fragment_signin_login_button">Ingresar</string>
+    <string name="fragment_signin_signup_button">REGISTRARSE</string>
+
+    <!-- SignUpFragment layout strings -->
+    <string name="fragment_signup_password">Contraseña</string>
+    <string name="fragment_signup_username">Email</string>
+    <string name="fragment_signup_repeat_password">Repetir Contraseña</string>
+    <string name="fragment_signup_btn_accept">Aceptar</string>
+    <string name="fragment_signup_btn_cancel">Volver</string>
+    <string name="msg_error_credentials">Error de credenciales</string>
+    <string name="msg_error_network">Error de red</string>
+    <string name="msg_error_InvalidUser">Usuario inválido</string>
+    <string name="fragment_pass_recovery_btn_accept">Enviar</string>
+    <string name="fragment_pass_recovery_btn_cancel">Volver</string>
+    <string name="fragment_pass_recovery_email">Email</string>
+    <string name="fragment_pass_recovery_txt_title">Recuperar contraseña</string>
+    <!-- Other strings -->
+
 </resources>

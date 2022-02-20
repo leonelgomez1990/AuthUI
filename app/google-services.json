@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "211155606647",
+    "project_id": "mana-db",
+    "storage_bucket": "mana-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211155606647:android:a96e6111ff3dbcdcce3a72",
+        "android_client_info": {
+          "package_name": "com.leo.authui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211155606647-t6ihqgrf95g9q6a133cjs6iece8cvf7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnav0Qj6J3-KBbyGnsM0nnBpitQsEm_2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211155606647-t6ihqgrf95g9q6a133cjs6iece8cvf7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

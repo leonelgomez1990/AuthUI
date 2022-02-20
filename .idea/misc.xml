@@ -4,8 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_sign_in.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/activity_menu.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_detail_news.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_list_news.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_pass_recovery.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_sign_in.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_sign_up.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_sing_up.xml" value="0.21822916666666667" />
         <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/fragment_splash.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/layout/item_recycler_news.xml" value="0.21822916666666667" />
+        <entry key="..\:/AndroidStudioProjects/AuthUI/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21822916666666667" />
       </map>
     </option>
   </component>
