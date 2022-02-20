@@ -29,7 +29,7 @@ object LoginModule {
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
 
-    // Data- DataSource provides
+    // Framework- DataSource provides
     @Provides
     fun provideFirebaseUserSource(auth: FirebaseAuth) : UsersDataSource = FirebaseUserSource(auth)
 

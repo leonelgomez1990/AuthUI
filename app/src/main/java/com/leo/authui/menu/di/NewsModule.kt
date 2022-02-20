@@ -1,6 +1,11 @@
 package com.leo.authui.menu.di
 
+import com.leo.authui.menu.data.NewsRepository
+import com.leo.authui.menu.data.NewsRepositoryImpl
+import com.leo.authui.menu.framework.NewsDataSource
 import com.leo.authui.menu.framework.NewsProvider
+import com.leo.authui.menu.framework.NewsProviderImpl
+import com.leo.authui.menu.usecases.GetNewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NewsProviderModule {
+object NewsModule {
 
     @Provides
     @Named("BaseUrl")
@@ -33,4 +38,20 @@ object NewsProviderModule {
     @Provides
     fun providerNewsProvider(retrofit: Retrofit): NewsProvider =
         retrofit.create(NewsProvider::class.java)
+
+    // Framework- DataSource provides
+    @Provides
+    fun provideNewsDataSource(newsProvider: NewsProvider) : NewsDataSource =
+        NewsProviderImpl(newsProvider)
+
+    // Data- Repository provides
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsDataSource: NewsDataSource): NewsRepository =
+        NewsRepositoryImpl(newsDataSource)
+
+    // Usecases provides
+    @Provides
+    fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase =
+        GetNewsUseCase(newsRepository)
 }
