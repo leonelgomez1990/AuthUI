@@ -25,9 +25,9 @@ import javax.inject.Singleton
 object LoginModule {
 
     // Framework provides
-    @Singleton
-    @Provides
-    fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
+    //@Singleton
+    //@Provides
+    //fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
 
     // Framework- DataSource provides
     @Provides

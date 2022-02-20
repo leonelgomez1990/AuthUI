@@ -1,7 +1,10 @@
 package com.leo.authui.menu.di
 
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.leo.authui.menu.data.NewsRepository
 import com.leo.authui.menu.data.NewsRepositoryImpl
+import com.leo.authui.menu.framework.FirebaseNewsDataSource
 import com.leo.authui.menu.framework.NewsDataSource
 import com.leo.authui.menu.framework.NewsProvider
 import com.leo.authui.menu.framework.NewsProviderImpl
@@ -41,8 +44,12 @@ object NewsModule {
 
     // Framework- DataSource provides
     @Provides
-    fun provideNewsDataSource(newsProvider: NewsProvider) : NewsDataSource =
+    fun provideRetrofitNewsDataSource(newsProvider: NewsProvider): NewsDataSource =
         NewsProviderImpl(newsProvider)
+
+    //@Provides
+    //fun provideFirebaseNewsDataSource(db: FirebaseFirestore, storage: FirebaseStorage): NewsDataSource =
+    //    FirebaseNewsDataSource(db, storage)
 
     // Data- Repository provides
     @Provides
