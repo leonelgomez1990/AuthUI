@@ -44,6 +44,10 @@ class NewsProviderImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteNew(uid: String): MyResult<Boolean> {
+        return MyResult.Success(false)
+    }
+
     private suspend fun uploadToFirebase() {
         val db = Firebase.firestore
 

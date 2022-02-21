@@ -50,5 +50,19 @@ class FirebaseNewsDataSource(
         }
     }
 
+    override suspend fun deleteNew(uid: String): MyResult<Boolean> {
+        return try {
+            val document = db.collection("News").document(uid)
+            val data = document
+                .delete()
+                .await()
+
+            MyResult.Success(true)
+        } catch (e: Exception) {
+            Log.e("deleteNew", "Exception thrown: ${e.message}")
+            MyResult.Failure(e)
+        }
+    }
+
 
 }

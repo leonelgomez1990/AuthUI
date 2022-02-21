@@ -16,4 +16,8 @@ class NewsRepositoryImpl(
         title: String
     ): MyResult<News> = newsDataSource.getNew(title)
 
+    override suspend fun deleteNew(new: String): MyResult<Boolean> {
+        return newsDataSource.deleteNew(new)
+    }
+
 }

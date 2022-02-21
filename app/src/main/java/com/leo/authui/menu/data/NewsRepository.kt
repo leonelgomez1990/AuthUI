@@ -6,4 +6,5 @@ import com.leo.authui.menu.domain.News
 interface NewsRepository {
     suspend fun getNews(country: String): MyResult<List<News>>
     suspend fun getNew(title: String): MyResult<News>
+    suspend fun deleteNew(uid: String): MyResult<Boolean>
 }

@@ -8,6 +8,7 @@ import com.leo.authui.menu.framework.FirebaseNewsDataSource
 import com.leo.authui.menu.framework.NewsDataSource
 import com.leo.authui.menu.framework.NewsProvider
 import com.leo.authui.menu.framework.NewsProviderImpl
+import com.leo.authui.menu.usecases.DeleteNewUseCase
 import com.leo.authui.menu.usecases.GetNewsUseCase
 import dagger.Module
 import dagger.Provides
@@ -48,7 +49,10 @@ object NewsModule {
     //    NewsProviderImpl(newsProvider)
 
     @Provides
-    fun provideFirebaseNewsDataSource(db: FirebaseFirestore, storage: FirebaseStorage): NewsDataSource =
+    fun provideFirebaseNewsDataSource(
+        db: FirebaseFirestore,
+        storage: FirebaseStorage
+    ): NewsDataSource =
         FirebaseNewsDataSource(db, storage)
 
     // Data- Repository provides
@@ -61,4 +65,10 @@ object NewsModule {
     @Provides
     fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase =
         GetNewsUseCase(newsRepository)
+
+    @Provides
+    fun provideDeleteNewUseCase(newsRepository: NewsRepository): DeleteNewUseCase =
+        DeleteNewUseCase(newsRepository)
+
+
 }
