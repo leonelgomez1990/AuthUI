@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.leo.authui.R
+import com.leo.authui.core.ui.hideKeyboard
 import com.leo.authui.core.ui.views.BaseViewState
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.showConfirmDialog
@@ -35,15 +36,13 @@ class DetailNewFragment : Fragment() {
     private val viewModel: DetailNewViewModel  by activityViewModels()
     private val args: DetailNewFragmentArgs by navArgs()
 
-    private lateinit var new : NewUI
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailNewBinding.inflate(layoutInflater)
         setListeners()
-        new = args.new!!
+        viewModel.new = args.new!!
         updateNewInformation(args.new)
         return binding.root
     }
@@ -68,11 +67,11 @@ class DetailNewFragment : Fragment() {
     private fun handleNavigation(navigation: DetailNewNavigatorStates) {
         when(navigation) {
             is DetailNewNavigatorStates.ToEditNew -> {
-                val action = DetailNewFragmentDirections.actionDetailNewsFragmentToEditNewFragment(navigation.new)
+                val action = DetailNewFragmentDirections.actionDetailNewsFragmentToEditNewFragment(navigation.uid)
                 findNavController().navigate(action)
             }
             is DetailNewNavigatorStates.GoBack -> {
-                showMessage("Se ha eliminado la noticia ${new.title}")
+                showMessage("Se ha eliminado la noticia ${viewModel.new.title}")
                 findNavController().navigateUp()
             }
         }.exhaustive
@@ -117,20 +116,16 @@ class DetailNewFragment : Fragment() {
     }
 
     private fun checkEditNew() {
-        binding.root.showConfirmDialog(
-            "Edición",
-            "¿Desea editar la noticia: ${new.title}?"
-        ) {
-            viewModel.goToEditNew(new)
-        }
+        viewModel.goToEditNew()
     }
 
     private fun checkDeleteNew() {
+        binding.root.hideKeyboard()
         binding.root.showConfirmDialog(
             "Eliminar",
-            "¿Desea borrar la noticia: ${new.title}?"
+            "¿Desea borrar la noticia: ${viewModel.new.title}?"
         ) {
-            viewModel.deleteNew(new.uid)
+            viewModel.deleteNew()
         }
     }
 

@@ -8,8 +8,10 @@ import com.leo.authui.menu.framework.FirebaseNewsDataSource
 import com.leo.authui.menu.framework.NewsDataSource
 import com.leo.authui.menu.framework.NewsProvider
 import com.leo.authui.menu.framework.NewsProviderImpl
+import com.leo.authui.menu.ui.viewmodels.EditNewViewModel
 import com.leo.authui.menu.usecases.DeleteNewUseCase
 import com.leo.authui.menu.usecases.GetNewsUseCase
+import com.leo.authui.menu.usecases.UpdateNewUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +50,7 @@ object NewsModule {
     //fun provideRetrofitNewsDataSource(newsProvider: NewsProvider): NewsDataSource =
     //    NewsProviderImpl(newsProvider)
 
+    @Singleton
     @Provides
     fun provideFirebaseNewsDataSource(
         db: FirebaseFirestore,
@@ -69,6 +72,15 @@ object NewsModule {
     @Provides
     fun provideDeleteNewUseCase(newsRepository: NewsRepository): DeleteNewUseCase =
         DeleteNewUseCase(newsRepository)
+
+    @Provides
+    fun provideUpdateNewUseCase(newsRepository: NewsRepository) : UpdateNewUseCase =
+        UpdateNewUseCase(newsRepository)
+
+    // Viewmodel provides
+    @Provides
+    fun provideEditNewViewModel (updateNewUseCase: UpdateNewUseCase, getNewUseCase: GetNewsUseCase) : EditNewViewModel =
+        EditNewViewModel(updateNewUseCase, getNewUseCase)
 
 
 }

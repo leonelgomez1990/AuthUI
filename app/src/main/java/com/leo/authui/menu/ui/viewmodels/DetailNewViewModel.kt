@@ -25,14 +25,16 @@ class DetailNewViewModel @Inject constructor(
     private val _viewState : MutableLiveData<BaseViewState> = MutableLiveData()
     val viewState : LiveData<BaseViewState> get() = _viewState
 
+    lateinit var new : NewUI
+
     init {
         _viewState.value = BaseViewState.Ready
     }
 
-    fun deleteNew(uid: String) {
+    fun deleteNew() {
         viewModelScope.launch {
             _viewState.value = BaseViewState.Loading
-            when(val result = deleteNewUseCase(uid)) {
+            when(val result = deleteNewUseCase(new.uid)) {
                 is MyResult.Failure -> { _viewState.value = BaseViewState.Failure(result.exception) }
                 is MyResult.Success -> {
                     goBack()
@@ -41,8 +43,8 @@ class DetailNewViewModel @Inject constructor(
         }
     }
 
-    fun goToEditNew(new: NewUI){
-        _navigation.value = DetailNewNavigatorStates.ToEditNew(new)
+    fun goToEditNew(){
+        _navigation.value = DetailNewNavigatorStates.ToEditNew(new.uid)
     }
     fun goBack(){
         _navigation.value = DetailNewNavigatorStates.GoBack

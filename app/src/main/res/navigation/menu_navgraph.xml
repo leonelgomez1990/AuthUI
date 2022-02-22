@@ -34,7 +34,7 @@
         android:label="fragment_edit_new"
         tools:layout="@layout/fragment_edit_new" >
         <argument
-            android:name="new"
-            app:argType="com.leo.authui.menu.ui.models.NewUI" />
+            android:name="uid"
+            app:argType="string" />
     </fragment>
 </navigation>

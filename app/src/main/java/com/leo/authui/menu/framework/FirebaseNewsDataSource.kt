@@ -7,6 +7,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.leo.authui.core.utils.MyResult
 import com.leo.authui.menu.domain.News
 import com.leo.authui.menu.framework.entities.FirebaseNew
+import com.leo.authui.menu.framework.entities.toFirebaseNew
 import com.leo.authui.menu.framework.entities.toNews
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -42,9 +43,9 @@ class FirebaseNewsDataSource(
         }
     }
 
-    override suspend fun getNew(title: String): MyResult<News> {
+    override suspend fun getNew(uid: String): MyResult<News> {
         return try {
-            MyResult.Success(news.first { it.title == title })
+            MyResult.Success(news.first { it.uid == uid })
         } catch (e: Exception) {
             MyResult.Failure(e)
         }
@@ -60,6 +61,23 @@ class FirebaseNewsDataSource(
             MyResult.Success(true)
         } catch (e: Exception) {
             Log.e("deleteNew", "Exception thrown: ${e.message}")
+            MyResult.Failure(e)
+        }
+    }
+
+    override suspend fun updateNew(data: News): MyResult<Boolean> {
+        if(data.uid == null) {
+            Log.e("updateNew", "Exception thrown: uid is null")
+            MyResult.Failure(Exception("Error"))
+        }
+        val document = db.collection("News").document(data.uid!!)
+        return try{
+            val data = document
+                .set(data.toFirebaseNew())
+                .await()
+            MyResult.Success(true)
+        } catch (e: Exception) {
+            Log.e("updateNew", "Exception thrown: ${e.message}")
             MyResult.Failure(e)
         }
     }

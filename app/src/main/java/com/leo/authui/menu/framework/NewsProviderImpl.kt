@@ -35,9 +35,9 @@ class NewsProviderImpl @Inject constructor(
 
     }
 
-    override suspend fun getNew(title: String): MyResult<News> {
+    override suspend fun getNew(uid: String): MyResult<News> {
         return try {
-            MyResult.Success(news.first { it.title == title })
+            MyResult.Success(news.first { it.uid == uid })
         }
         catch (e : Exception) {
             MyResult.Failure(e)
@@ -45,6 +45,10 @@ class NewsProviderImpl @Inject constructor(
     }
 
     override suspend fun deleteNew(uid: String): MyResult<Boolean> {
+        return MyResult.Success(false)
+    }
+
+    override suspend fun updateNew(data: News): MyResult<Boolean> {
         return MyResult.Success(false)
     }
 
