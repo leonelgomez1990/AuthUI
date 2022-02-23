@@ -2,6 +2,7 @@ package com.leo.authui.menu.di
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.leo.authui.core.data.storage.StorageRepository
 import com.leo.authui.menu.data.NewsRepository
 import com.leo.authui.menu.data.NewsRepositoryImpl
 import com.leo.authui.menu.framework.FirebaseNewsDataSource
@@ -9,9 +10,7 @@ import com.leo.authui.menu.framework.NewsDataSource
 import com.leo.authui.menu.framework.NewsProvider
 import com.leo.authui.menu.framework.NewsProviderImpl
 import com.leo.authui.menu.ui.viewmodels.EditNewViewModel
-import com.leo.authui.menu.usecases.DeleteNewUseCase
-import com.leo.authui.menu.usecases.GetNewsUseCase
-import com.leo.authui.menu.usecases.UpdateNewUseCase
+import com.leo.authui.menu.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,12 +73,26 @@ object NewsModule {
         DeleteNewUseCase(newsRepository)
 
     @Provides
-    fun provideUpdateNewUseCase(newsRepository: NewsRepository) : UpdateNewUseCase =
+    fun provideUpdateNewUseCase(newsRepository: NewsRepository): UpdateNewUseCase =
         UpdateNewUseCase(newsRepository)
+
+    // Usecases provides
+    @Provides
+    fun provideUploadImageUseCase(storageRepository: StorageRepository): UploadImageUseCase =
+        UploadImageUseCase(storageRepository)
+
+    // Usecases provides
+    @Provides
+    fun provideDeleteImageUseCase(storageRepository: StorageRepository): DeleteImageUseCase =
+        DeleteImageUseCase(storageRepository)
+
 
     // Viewmodel provides
     @Provides
-    fun provideEditNewViewModel (updateNewUseCase: UpdateNewUseCase, getNewUseCase: GetNewsUseCase) : EditNewViewModel =
+    fun provideEditNewViewModel(
+        updateNewUseCase: UpdateNewUseCase,
+        getNewUseCase: GetNewsUseCase
+    ): EditNewViewModel =
         EditNewViewModel(updateNewUseCase, getNewUseCase)
 
 

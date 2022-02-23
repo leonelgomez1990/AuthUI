@@ -72,7 +72,7 @@ class FirebaseNewsDataSource(
         }
         val document = db.collection("News").document(data.uid!!)
         return try{
-            val data = document
+            val op = document
                 .set(data.toFirebaseNew())
                 .await()
             MyResult.Success(true)
