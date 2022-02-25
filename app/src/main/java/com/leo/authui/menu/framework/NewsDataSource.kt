@@ -8,4 +8,5 @@ interface NewsDataSource {
     suspend fun getNew(uid: String): MyResult<News>
     suspend fun deleteNew(uid: String): MyResult<Boolean>
     suspend fun updateNew(data: News): MyResult<Boolean>
+    suspend fun createNew(data: News): MyResult<String>
 }

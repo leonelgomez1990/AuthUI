@@ -39,7 +39,7 @@ class AddNewFragment : Fragment() {
 
     private var _binding: FragmentAddNewBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddNewViewModel  by activityViewModels()
+    private val viewModel: AddNewViewModel by activityViewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     @Inject
@@ -61,12 +61,13 @@ class AddNewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                doSomeOperations(data)
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+                    doSomeOperations(data)
+                }
             }
-        }
 
     }
 
@@ -80,11 +81,13 @@ class AddNewFragment : Fragment() {
         viewModel.navigation.observe(viewLifecycleOwner, Observer { handleNavigation(it) })
         viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it) })
         //Otros observadores
-        viewModel.urlImage.observe(viewLifecycleOwner, Observer { binding.editUrlImage.setText(viewModel.urlImage.value.toString()) })
+        viewModel.urlImage.observe(
+            viewLifecycleOwner,
+            Observer { binding.editUrlImage.setText(viewModel.urlImage.value.toString()) })
     }
 
     private fun handleNavigation(navigation: AddNewNavigatorStates) {
-        when(navigation) {
+        when (navigation) {
             is AddNewNavigatorStates.GoBack -> {
                 findNavController().navigateUp()
             }
@@ -92,11 +95,17 @@ class AddNewFragment : Fragment() {
     }
 
     private fun handleViewStates(state: BaseViewState) {
-        when(state) {
-            is BaseViewState.Failure -> { handleExceptions(state.exception)
-                enableUI(true)}
-            is BaseViewState.Loading -> { enableUI(false) }
-            is BaseViewState.Ready -> { enableUI(true) }
+        when (state) {
+            is BaseViewState.Failure -> {
+                handleExceptions(state.exception)
+                enableUI(true)
+            }
+            is BaseViewState.Loading -> {
+                enableUI(false)
+            }
+            is BaseViewState.Ready -> {
+                enableUI(true)
+            }
         }.exhaustive
     }
 
@@ -105,14 +114,14 @@ class AddNewFragment : Fragment() {
     }
 
     private fun enableUI(enable: Boolean) {
-        if(enable) {
+        if (enable) {
             binding.progressLoader.visibility = View.GONE
         } else {
             binding.progressLoader.visibility = View.VISIBLE
         }
     }
 
-    private fun handleExceptions(e: Exception){
+    private fun handleExceptions(e: Exception) {
         Log.w("AddNewFragment", "Exception thrown: ${e.message}")
         showMessage(getString(R.string.msg_error_default))
     }
@@ -141,7 +150,7 @@ class AddNewFragment : Fragment() {
                     "Edición",
                     "¿Desea crear la noticia: ${viewModel.new.title}?"
                 ) {
-                    //viewModel.updateNew(new)
+                    viewModel.createNew(new)
                 }
             }
         }
@@ -149,7 +158,7 @@ class AddNewFragment : Fragment() {
 
     private fun doAskForImage() {
 
-        when(requestPermissionsUseCase.requestStoragePermission(requireActivity())) {
+        when (requestPermissionsUseCase.requestStoragePermission(requireActivity())) {
             is MyResult.Success -> {
 
                 val intent = Intent()
@@ -165,7 +174,7 @@ class AddNewFragment : Fragment() {
 
     }
 
-    private fun doSomeOperations(data : Intent?) {
+    private fun doSomeOperations(data: Intent?) {
         try {
             if (data != null) {
                 viewModel.doUploadImageToDatabase(data.data.toString())

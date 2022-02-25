@@ -18,10 +18,11 @@ class FirebaseNewsDataSource(
 ) : NewsDataSource {
 
     private var news: List<News> = emptyList()
+    private val COLLECTIONPATH = "News"
 
     override suspend fun getNews(country: String): MyResult<List<News>> {
         return try {
-            val documents = db.collection("News")
+            val documents = db.collection(COLLECTIONPATH)
                 .whereEqualTo("enabled", true)
                 .orderBy("title")
                 .get().await()
@@ -53,7 +54,7 @@ class FirebaseNewsDataSource(
 
     override suspend fun deleteNew(uid: String): MyResult<Boolean> {
         return try {
-            val document = db.collection("News").document(uid)
+            val document = db.collection(COLLECTIONPATH).document(uid)
             val data = document
                 .delete()
                 .await()
@@ -66,12 +67,12 @@ class FirebaseNewsDataSource(
     }
 
     override suspend fun updateNew(data: News): MyResult<Boolean> {
-        if(data.uid == null) {
+        if (data.uid == null) {
             Log.e("updateNew", "Exception thrown: uid is null")
             MyResult.Failure(Exception("Error"))
         }
-        val document = db.collection("News").document(data.uid!!)
-        return try{
+        val document = db.collection(COLLECTIONPATH).document(data.uid!!)
+        return try {
             val op = document
                 .set(data.toFirebaseNew())
                 .await()
@@ -82,5 +83,18 @@ class FirebaseNewsDataSource(
         }
     }
 
+    override suspend fun createNew(data: News): MyResult<String> {
+        val document = db.collection(COLLECTIONPATH).document()
+        data.uid = document.id
+        return try {
+            val op = document
+                .set(data.toFirebaseNew())
+                .await()
+            MyResult.Success(document.id)
+        } catch (e: Exception) {
+            Log.e("createNew", "Exception thrown: ${e.message}")
+            MyResult.Failure(e)
+        }
+    }
 
 }

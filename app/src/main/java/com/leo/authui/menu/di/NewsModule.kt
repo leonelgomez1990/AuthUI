@@ -81,10 +81,13 @@ object NewsModule {
     fun provideUploadImageUseCase(storageRepository: StorageRepository): UploadImageUseCase =
         UploadImageUseCase(storageRepository)
 
-    // Usecases provides
     @Provides
     fun provideDeleteImageUseCase(storageRepository: StorageRepository): DeleteImageUseCase =
         DeleteImageUseCase(storageRepository)
+
+    @Provides
+    fun provideCreateNewUseCase(newsRepository: NewsRepository): CreateNewUseCase =
+        CreateNewUseCase(newsRepository)
 
 
     // Viewmodel provides

@@ -24,4 +24,8 @@ class NewsRepositoryImpl(
         return newsDataSource.updateNew(data)
     }
 
+    override suspend fun createNew(data: News): MyResult<String> {
+        return newsDataSource.createNew(data)
+    }
+
 }
