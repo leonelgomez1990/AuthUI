@@ -20,6 +20,7 @@ import com.leo.authui.core.utils.showConfirmDialog
 import com.leo.authui.menu.ui.navigatorstates.EditNewNavigatorStates
 import com.leo.authui.menu.ui.viewmodels.EditNewViewModel
 import com.leo.authui.databinding.FragmentEditNewBinding
+import com.leo.authui.login.ui.fragments.SignUpFragment
 import com.leo.authui.menu.domain.News
 import com.leo.authui.menu.ui.models.toNew
 import dagger.hilt.android.AndroidEntryPoint
@@ -115,21 +116,32 @@ class EditNewFragment : Fragment() {
     }
 
     private fun checkDataToSave() {
-        binding.root.hideKeyboard()
-        binding.root.showConfirmDialog(
-            "Edición",
-            "¿Desea editar la noticia: ${viewModel.new.title}?"
-        ) {
-            var new = viewModel.new
-            new.title = binding.editTitle.text.toString()
-            new.author = binding.editAuthor.text.toString()
-            new.content = binding.editContent.text.toString()
-            new.url = binding.editUrl.text.toString()
-            new.urlToImage = binding.editUrlImage.text.toString()
+        var new = viewModel.new
+        with(binding) {
+            new.title = editTitle.text.toString()
+            new.author = editAuthor.text.toString()
+            new.content = editContent.text.toString()
+            new.url = editUrl.text.toString()
+            new.urlToImage = editUrlImage.text.toString()
 
-            viewModel.updateNew(new)
+            root.hideKeyboard()
+
+            editTitle.error = when (new.title.isBlank()) {
+                true -> "Ingrese un título para la noticia"
+                false -> null
+            }
+            editUrlImage.error = when (new.urlToImage.isBlank()) {
+                true -> "Ingrese una imagen para la noticia"
+                false -> null
+            }
+            if ((editTitle.error == null) && (editUrlImage.error == null)) {
+                root.showConfirmDialog(
+                    "Edición",
+                    "¿Desea editar la noticia: ${viewModel.new.title}?"
+                ) {
+                    viewModel.updateNew(new)
+                }
+            }
         }
     }
-
-
 }

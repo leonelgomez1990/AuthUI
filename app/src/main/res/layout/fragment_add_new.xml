@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.ui.fragments.EditNewFragment">
+    tools:context=".menu.ui.fragments.AddNewFragment">
 
     <ScrollView
-        android:id="@+id/scrollViewEditNew"
+        android:id="@+id/scrollViewAddNew"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
@@ -62,7 +62,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Editar noticia"
+                android:text="Crear noticia"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"
                 app:layout_constraintStart_toStartOf="@+id/guideline_left"
@@ -134,6 +134,7 @@
                     android:id="@+id/editUrlImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="textUri" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -177,6 +178,18 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"
                 app:layout_constraintStart_toStartOf="@+id/guideline_mid"
                 app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_add"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/txiUrlImage"
+                app:layout_constraintEnd_toEndOf="@+id/txiUrlImage"
+                app:layout_constraintTop_toTopOf="@+id/txiUrlImage" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

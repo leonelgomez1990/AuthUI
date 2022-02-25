@@ -37,12 +37,17 @@ class ListNewsFragment : Fragment() {
     ): View? {
         _binding = FragmentListNewsBinding.inflate(layoutInflater)
         viewModel.refreshNews()
+        setListeners()
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         setObservers()
+    }
+
+    private fun setListeners() {
+        binding.fabAddNew.setOnClickListener { viewModel.goToAddNew() }
     }
 
     private fun setObservers() {
@@ -57,7 +62,10 @@ class ListNewsFragment : Fragment() {
             is ListNewsNavigatorStates.ToDetailNews -> {
                 val action = ListNewsFragmentDirections.actionListNewsFragmentToDetailNewsFragment(navigation.new)
                 findNavController().navigate(action)
-
+            }
+            is ListNewsNavigatorStates.ToAddNew -> {
+                val action = ListNewsFragmentDirections.actionListNewsFragmentToAddNewFragment()
+                findNavController().navigate(action)
             }
         }.exhaustive
     }
