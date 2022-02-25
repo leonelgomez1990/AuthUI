@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
@@ -25,6 +26,7 @@ import com.leo.authui.core.utils.showConfirmDialog
 import com.leo.authui.menu.ui.navigatorstates.AddNewNavigatorStates
 import com.leo.authui.menu.ui.viewmodels.AddNewViewModel
 import com.leo.authui.databinding.FragmentAddNewBinding
+import com.leo.authui.menu.ui.models.NewUI
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 import javax.inject.Inject
@@ -56,6 +58,7 @@ class AddNewFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        requestPermissionsUseCase.requestStoragePermission(requireActivity())
         setObservers()
     }
 
@@ -83,7 +86,9 @@ class AddNewFragment : Fragment() {
         //Otros observadores
         viewModel.urlImage.observe(
             viewLifecycleOwner,
-            Observer { binding.editUrlImage.setText(viewModel.urlImage.value.toString()) })
+            Observer {
+                updateNewPicture()
+            })
     }
 
     private fun handleNavigation(navigation: AddNewNavigatorStates) {
@@ -185,5 +190,16 @@ class AddNewFragment : Fragment() {
         }
     }
 
+    private fun updateNewPicture() {
+        binding.editUrlImage.setText(viewModel.urlImage.value.toString())
+        if (viewModel.urlImage.value != "") {
+            Glide.with(binding.root)
+                .load(viewModel.urlImage.value)
+                .centerCrop()
+                .into(binding.imgNews)
+        }
+        else
+            binding.imgNews.setImageResource(0)
+    }
 
 }

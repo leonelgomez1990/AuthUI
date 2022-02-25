@@ -28,6 +28,7 @@ class EditNewViewModel @Inject constructor(
     private val _viewState : MutableLiveData<BaseViewState> = MutableLiveData()
     val viewState : LiveData<BaseViewState> get() = _viewState
 
+    val urlImage: MutableLiveData<String> = MutableLiveData()
     lateinit var new : News
 
     init {

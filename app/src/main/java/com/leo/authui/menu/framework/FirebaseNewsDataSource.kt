@@ -13,8 +13,7 @@ import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
 class FirebaseNewsDataSource(
-    private val db: FirebaseFirestore,
-    private val storage: FirebaseStorage
+    private val db: FirebaseFirestore
 ) : NewsDataSource {
 
     private var news: List<News> = emptyList()

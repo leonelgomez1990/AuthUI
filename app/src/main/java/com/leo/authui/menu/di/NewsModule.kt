@@ -52,10 +52,9 @@ object NewsModule {
     @Singleton
     @Provides
     fun provideFirebaseNewsDataSource(
-        db: FirebaseFirestore,
-        storage: FirebaseStorage
+        db: FirebaseFirestore
     ): NewsDataSource =
-        FirebaseNewsDataSource(db, storage)
+        FirebaseNewsDataSource(db)
 
     // Data- Repository provides
     @Provides

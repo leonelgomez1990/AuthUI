@@ -178,6 +178,29 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline_mid"
                 app:layout_constraintTop_toTopOf="@+id/btnCancel" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvImgNews"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/cardview_corner_radius"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintTop_toBottomOf="@id/btnCancel"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right">
+
+                <ImageView
+                    android:id="@+id/imgNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </androidx.cardview.widget.CardView>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
@@ -62,6 +63,7 @@ class EditNewFragment : Fragment() {
     private fun setObservers() {
         viewModel.navigation.observe(viewLifecycleOwner, Observer { handleNavigation(it) })
         viewModel.viewState.observe(viewLifecycleOwner, Observer { handleViewStates(it) })
+        viewModel.urlImage.observe(viewLifecycleOwner, Observer { updateNewPicture() })
         //Otros observadores
     }
 
@@ -113,6 +115,18 @@ class EditNewFragment : Fragment() {
         binding.editUrl.setText(new.url)
         binding.editUrlImage.setText(new.urlToImage)
         binding.editContent.setText(new.content)
+        viewModel.urlImage.value = binding.editUrlImage.text.toString()
+    }
+
+    private fun updateNewPicture() {
+        binding.editUrlImage.setText(viewModel.urlImage.value.toString())
+        if (viewModel.urlImage.value != "") {
+            Glide.with(binding.root)
+                .load(viewModel.urlImage.value)
+                .centerCrop()
+                .into(binding.imgNews)
+        } else
+            binding.imgNews.setImageResource(0)
     }
 
     private fun checkDataToSave() {
