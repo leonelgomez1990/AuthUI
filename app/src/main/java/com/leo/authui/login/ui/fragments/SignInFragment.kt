@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.leo.authui.core.utils.exhaustive
 import com.leo.authui.core.utils.snack
 import com.leo.authui.databinding.FragmentSignInBinding
 import com.leo.authui.login.ui.navigatorstates.SignInNavigatorStates
+import com.leo.authui.login.ui.screens.LoginForm
 import com.leo.authui.login.ui.viewmodels.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,8 +43,19 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignInBinding.inflate(layoutInflater)
+            //_binding = DataBindingUtil.inflate<FragmentSignInBinding>(
+            //inflater, R.layout.fragment_sign_in, container, false)
+            .apply {
+                loginForm.setContent {
+                    // You're in Compose world!
+                    LoginForm(onLogin = {
+                        viewModel.doUserLogin("", "")
+                    })
+                }
+            }
+
         //No implementado por ahora
-        binding.checkRemember.visibility = View.GONE
+        //binding.checkRemember.visibility = View.GONE
         setListeners()
 
         return binding.root
@@ -54,11 +67,11 @@ class SignInFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.btnSignIn.setOnClickListener {
-            signInCallBack()
-        }
-        binding.txtSignUp.setOnClickListener { viewModel.goToSignUp() }
-        binding.txtPswdForgotten.setOnClickListener { viewModel.goToPassRecovery() }
+        //binding.btnSignIn.setOnClickListener {
+        //    signInCallBack()
+        //}
+        //binding.txtSignUp.setOnClickListener { viewModel.goToSignUp() }
+        //binding.txtPswdForgotten.setOnClickListener { viewModel.goToPassRecovery() }
     }
 
     private fun setObservers() {
@@ -129,6 +142,7 @@ class SignInFragment : Fragment() {
         }
     }
 
+    /*
     private fun signInCallBack() {
         with(binding) {
             val username = editUserName.editText?.text.toString()
@@ -149,6 +163,7 @@ class SignInFragment : Fragment() {
             }
         }
     }
+     */
 
     override fun onDestroyView() {
         super.onDestroyView()
