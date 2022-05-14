@@ -2,25 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.ui.fragments.SignUpFragment" >
+    tools:context=".login.ui.fragments.SignUpFragment">
 
     <ScrollView
         android:id="@+id/scrollViewSignUp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingBottom="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_left"
@@ -36,6 +36,19 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.85" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/fragment_sign_up_txt_title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editNewUserName"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editNewUserName"
                 android:layout_width="0dp"
@@ -47,7 +60,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/editNewPassword"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"
                 app:layout_constraintStart_toStartOf="@+id/guideline_left"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -59,6 +72,7 @@
                 android:id="@+id/editNewPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/fragment_signup_password"
                 app:endIconMode="password_toggle"
@@ -77,6 +91,7 @@
                 android:id="@+id/editNewRepeatPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/fragment_signup_repeat_password"
                 app:endIconMode="password_toggle"

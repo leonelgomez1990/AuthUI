@@ -23,6 +23,7 @@
     <string name="fragment_pass_recovery_btn_cancel">Volver</string>
     <string name="fragment_pass_recovery_email">Email</string>
     <string name="fragment_pass_recovery_txt_title">Recuperar contraseña</string>
+    <string name="fragment_sign_up_txt_title">Registrarse</string>
     <!-- Other strings -->
 
 </resources>

@@ -13,7 +13,19 @@ class NewsRepositoryImpl(
     ): MyResult<List<News>> = newsDataSource.getNews(country)
 
     override suspend fun getNew(
-        title: String
-    ): MyResult<News> = newsDataSource.getNew(title)
+        uid: String
+    ): MyResult<News> = newsDataSource.getNew(uid)
+
+    override suspend fun deleteNew(uid: String): MyResult<Boolean> {
+        return newsDataSource.deleteNew(uid)
+    }
+
+    override suspend fun updateNew(data: News): MyResult<Boolean> {
+        return newsDataSource.updateNew(data)
+    }
+
+    override suspend fun createNew(data: News): MyResult<String> {
+        return newsDataSource.createNew(data)
+    }
 
 }

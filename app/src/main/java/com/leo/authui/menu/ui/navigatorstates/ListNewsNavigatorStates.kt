@@ -4,6 +4,7 @@ import com.leo.authui.menu.ui.models.NewUI
 
 sealed class ListNewsNavigatorStates {
     data class ToDetailNews(val new: NewUI): ListNewsNavigatorStates()
+    object ToAddNew : ListNewsNavigatorStates()
 }
 
 

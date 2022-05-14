@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class NewsProviderImpl @Inject constructor(
     private val newsProvider: NewsProvider
-): NewsDataSource {
+) : NewsDataSource {
 
     private var news: List<News> = emptyList()
 
@@ -28,20 +28,30 @@ class NewsProviderImpl @Inject constructor(
             //uploadToFirebase()
 
             MyResult.Success(news)
-        }
-        catch (e : Exception) {
+        } catch (e: Exception) {
             MyResult.Failure(e)
         }
 
     }
 
-    override suspend fun getNew(title: String): MyResult<News> {
+    override suspend fun getNew(uid: String): MyResult<News> {
         return try {
-            MyResult.Success(news.first { it.title == title })
-        }
-        catch (e : Exception) {
+            MyResult.Success(news.first { it.uid == uid })
+        } catch (e: Exception) {
             MyResult.Failure(e)
         }
+    }
+
+    override suspend fun deleteNew(uid: String): MyResult<Boolean> {
+        return MyResult.Success(false)
+    }
+
+    override suspend fun updateNew(data: News): MyResult<Boolean> {
+        return MyResult.Success(false)
+    }
+
+    override suspend fun createNew(data: News): MyResult<String> {
+        return MyResult.Success("")
     }
 
     private suspend fun uploadToFirebase() {
@@ -52,11 +62,11 @@ class NewsProviderImpl @Inject constructor(
             new.uid = document.id
             new.enabled = true
             val query = document
-            try{
+            try {
                 val data = query
                     .set(new.toFirebaseNew())
                     .await()
-            }catch(e: java.lang.Exception){
+            } catch (e: java.lang.Exception) {
             }
         }
 

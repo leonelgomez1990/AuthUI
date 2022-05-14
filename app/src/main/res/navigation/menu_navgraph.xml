@@ -12,16 +12,37 @@
         tools:layout="@layout/fragment_list_news" >
         <action
             android:id="@+id/action_listNewsFragment_to_detailNewsFragment"
-            app:destination="@id/detailNewsFragment" />
+            app:destination="@id/detailNewFragment" />
+        <action
+            android:id="@+id/action_listNewsFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailNewsFragment"
-        android:name="com.leo.authui.menu.ui.fragments.DetailNewsFragment"
-        android:label="fragment_detail_news"
-        tools:layout="@layout/fragment_detail_news" >
-        <argument android:name="new"
+        android:id="@+id/detailNewFragment"
+        android:name="com.leo.authui.menu.ui.fragments.DetailNewFragment"
+        android:label="fragment_detail_new"
+        tools:layout="@layout/fragment_detail_new">
+        <argument
+            android:name="new"
+            android:defaultValue="@null"
             app:argType="com.leo.authui.menu.ui.models.NewUI"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_detailNewsFragment_to_editNewFragment"
+            app:destination="@id/editNewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editNewFragment"
+        android:name="com.leo.authui.menu.ui.fragments.EditNewFragment"
+        android:label="fragment_edit_new"
+        tools:layout="@layout/fragment_edit_new" >
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewFragment"
+        android:name="com.leo.authui.menu.ui.fragments.AddNewFragment"
+        android:label="fragment_add_new"
+        tools:layout="@layout/fragment_add_new" />
 </navigation>

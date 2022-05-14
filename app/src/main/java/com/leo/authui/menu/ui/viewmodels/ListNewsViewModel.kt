@@ -50,4 +50,7 @@ class ListNewsViewModel @Inject constructor(
         _navigation.value = ListNewsNavigatorStates.ToDetailNews(new!!.toNewUI())
     }
 
+    fun goToAddNew(){
+        _navigation.value = ListNewsNavigatorStates.ToAddNew
+    }
 }
