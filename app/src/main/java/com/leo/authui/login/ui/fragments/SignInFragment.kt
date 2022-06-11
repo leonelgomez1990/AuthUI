@@ -48,7 +48,7 @@ class SignInFragment : Fragment() {
             .apply {
                 loginForm.setContent {
                     // You're in Compose world!
-                    LoginForm(onLogin = {
+                    LoginForm(viewModel = viewModel, onLogin = {
                         viewModel.doUserLogin("", "")
                     })
                 }

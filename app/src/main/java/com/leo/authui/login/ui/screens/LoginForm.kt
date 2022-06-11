@@ -14,11 +14,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.leo.authui.R
-import com.leo.authui.core.ui.theme.Screen
+import com.leo.authui.core.ui.compose.DefaultScreen
+import com.leo.authui.login.ui.viewmodels.SignInViewModel
 
 @Composable
-fun LoginForm(onLogin: () -> Unit) {
-    Screen {
+fun LoginForm(viewModel: SignInViewModel, onLogin: () -> Unit) {
+    DefaultScreen {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
@@ -29,7 +30,9 @@ fun LoginForm(onLogin: () -> Unit) {
 
             UserTextField(value = user, onValueChange = { user = it })
             PasswordTextField(value = pass, onValueChange = { pass = it })
-            LoginButton(loginEnabled, onLogin)
+            LoginButton(loginEnabled) {
+                viewModel.doUserLogin(user, pass)
+            }
         }
     }
 }

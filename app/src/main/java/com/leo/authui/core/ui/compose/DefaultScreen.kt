@@ -1,4 +1,4 @@
-package com.leo.authui.core.ui.theme
+package com.leo.authui.core.ui.compose
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Screen(content: @Composable () -> Unit) {
+fun DefaultScreen(content: @Composable () -> Unit) {
     DefaultTheme {
         // A surface container using the 'background' color from the theme
         Surface(
